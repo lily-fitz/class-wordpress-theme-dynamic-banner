@@ -24,9 +24,6 @@
     </ol>
 
     
-
-    
-    
     <?php
 
     if (comments_open()) {

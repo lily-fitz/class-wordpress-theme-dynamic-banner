@@ -7,6 +7,8 @@ function mytheme_styles() {
 
     wp_enqueue_style('theme-style', get_stylesheet_uri(), array('google-fonts'), $version, 'all');
 
+    wp_enqueue_style('theme-sass', get_theme_file_uri('/src/search-overlay.scss'), null, $version, 'all');
+
     wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
     wp_enqueue_style('google-fonts', '//fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,600,700,700i|Roboto:100,300,400,400i,700,700i');
@@ -23,7 +25,9 @@ function mytheme_scripts() {
 
     $version = wp_get_theme() -> get('Version');
 
-    wp_enqueue_script('theme-script', get_theme_file_uri('script.js'), array('jquery'), $version, true);
+    wp_enqueue_script('theme-script', get_theme_file_uri('/src/script.js'), array('jquery'), $version, true);
+
+    wp_enqueue_script('theme-src-script', get_theme_file_uri('/build/index.js'), array('jquery'), $version, true);
 }
 
 add_action('wp_enqueue_scripts', 'mytheme_scripts');

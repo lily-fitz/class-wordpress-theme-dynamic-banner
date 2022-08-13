@@ -3,7 +3,7 @@
 
 
 <main id="main"
-style="background-image: url(<?php echo get_theme_file_uri('/imgs/plant.png'); ?>); background-size: cover;"
+style="background-image: url(<?php echo get_theme_file_uri('/images/plant.png'); ?>); background-size: cover;"
 >
 <div class="container">
 
