@@ -1,0 +1,84 @@
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[3]!./src/main.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+.search-overlay {
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 9999;
+  position: fixed;
+  inset: 0 0 0 0;
+  background-color: rgba(0, 0, 0, 0.88);
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(1.09);
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+  box-sizing: border-box;
+}
+body.admin-bar .search-overlay {
+  top: 32px;
+}
+.search-overlay button {
+  padding: 0;
+}
+.search-overlay__top {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom: solid white 1px;
+}
+.search-overlay__icon {
+  margin-right: 10px;
+  font-size: 1.25rem !important;
+  color: rgb(255, 255, 255);
+}
+.search-overlay--active {
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+}
+.search-overlay__open {
+  position: absolute;
+  top: 1px;
+  right: 0px;
+}
+.search-overlay__open i {
+  color: white;
+}
+.search-overlay__close {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  font-size: 2.75rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+  line-height: 0.7;
+}
+.search-overlay__close:hover {
+  opacity: 1;
+}
+
+.search-term {
+  width: 75%;
+  box-sizing: border-box;
+  border: none;
+  padding: 25px 30px;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 400;
+  outline: none;
+  color: dodgerblue;
+  font-family: "Montserrat";
+}
+
+.body-no-scroll {
+  overflow: hidden;
+}
+
+i.search-overlay__icon-full {
+  margin-right: 10px;
+  font-size: 1.25rem !important;
+  color: rgb(0, 0, 0);
+}
+
+/*# sourceMappingURL=index.css.map*/

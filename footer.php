@@ -34,9 +34,11 @@
 <div class="search-overlay">
     <div class="search-overlay__top">
       <div class="container">
-        <i class="fa fa-search search-overlay__icon" aria-hidden="true"></i>
-        <input type="text" class="search-term" placeholder="What are you looking for?" id="search-term">
-        <i class="fa fa-window-close search-overlay__close" aria-hidden="true"></i>
+        <form method="get" action="<?php echo esc_url(site_url('/')); ?>">
+            <button type="submit" value="Search"><i class="fa fa-search search-overlay__icon" aria-hidden="true"></i></button>
+            <input type="search" name="s" class="search-term" placeholder="What are you looking for?" id="search-term">
+        </form>
+        <span class="search-overlay__close" onClick="closeSearch()">&times;</span>
       </div>
     </div>
   </div>

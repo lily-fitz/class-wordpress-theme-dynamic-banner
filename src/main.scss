@@ -1,0 +1,88 @@
+.search-overlay {
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 9999;
+  position: fixed;
+  inset: 0 0 0 0;
+  background-color: rgba(0, 0, 0, 0.88);
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(1.09);
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+  box-sizing: border-box;
+
+  body.admin-bar & {
+    top: 32px;
+  }
+
+  button {
+    padding: 0;
+  }
+
+  &__top {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-bottom: solid white 1px;
+  }
+
+  &__icon {
+    margin-right: 10px;
+    font-size: 1.25rem !important;
+    color: rgb(255, 255, 255);
+  }
+
+  &--active {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &__open {
+    position: absolute;
+    top: 1px;
+    right: 0px;
+  }
+
+  &__open i {
+    color: white;
+  }
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 2.75rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    line-height: 0.7;
+  }
+
+  &__close:hover {
+    opacity: 1;
+  }
+}
+
+.search-term {
+  width: 75%;
+  box-sizing: border-box;
+  border: none;
+  padding: 25px 30px;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 400;
+  outline: none;
+  color: dodgerblue;
+  font-family: 'Montserrat';
+}
+
+.body-no-scroll {
+  overflow: hidden;
+}
+
+i.search-overlay__icon-full {
+  margin-right: 10px;
+  font-size: 1.25rem !important;
+  color: rgb(0, 0, 0);
+}

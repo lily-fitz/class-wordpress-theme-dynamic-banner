@@ -1,5 +1,8 @@
 <?php
 
+require get_theme_file_path('/inc/search-route.php');
+
+// Register Styles
 
 function mytheme_styles() {
 
@@ -7,7 +10,7 @@ function mytheme_styles() {
 
     wp_enqueue_style('theme-style', get_stylesheet_uri(), array('google-fonts'), $version, 'all');
 
-    wp_enqueue_style('theme-sass', get_theme_file_uri('/src/search-overlay.scss'), null, $version, 'all');
+    wp_enqueue_style('theme-sass', get_theme_file_uri('/build/index.css'), null, $version, 'all');
 
     wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
@@ -20,6 +23,7 @@ add_action('wp_enqueue_scripts', 'mytheme_styles');
 
 
 
+// Register Scripts
 
 function mytheme_scripts() {
 
@@ -34,6 +38,7 @@ add_action('wp_enqueue_scripts', 'mytheme_scripts');
 
 
 
+// Register menus
 
 function mytheme_menus() {
 
@@ -50,6 +55,7 @@ add_action('init', 'mytheme_menus');
 
 
 
+// Add title tags, featured images, custom images sizes
 
 function mytheme_features () {
 
@@ -70,6 +76,7 @@ add_action('after_setup_theme', 'mytheme_features');
 
 
 
+// Register widget
 
 function mytheme_widgetareas() {
     register_sidebar(
@@ -90,6 +97,7 @@ add_action('widgets_init', 'mytheme_widgetareas');
 
 
 
+// Dynamic Banner
 
 function themePageBanner($args = NULL) {
     
@@ -111,6 +119,7 @@ function themePageBanner($args = NULL) {
 
 
 
+// Adjust queries
 
 function mytheme_adjust_queries($query) {
 
@@ -142,6 +151,10 @@ function mytheme_adjust_queries($query) {
 add_action('pre_get_posts', 'mytheme_adjust_queries');
 
 
+
+
+// Remove author link
+
 add_filter( 'get_comment_author_link', 'remove_comment_author_link', 10, 3 );
 function remove_comment_author_link( $return, $author, $comment_ID ) {
 	return $author;
@@ -169,3 +182,182 @@ add_filter( 'get_comment_time', 'wpb_remove_comment_time', 10, 3);
 // add_filter( 'get_comment_date', 'wpb_remove_comment_date', 10, 3);
  
 
+
+//Redirect subscribers to Homepage
+
+function redirectHome(){
+    $currentUser = wp_get_current_user();
+
+    if(count($currentUser->roles) == 1 AND $currentUser->roles[0] == 'subscriber') {
+        wp_redirect(site_url('/'));
+        exit;
+    }
+}
+
+add_action('admin_init', 'redirectHome');
+
+
+
+//Remove admin bar for subscribers
+
+function hideAdminBar(){
+    $currentUser = wp_get_current_user();
+
+    if(count($currentUser->roles) == 1 AND $currentUser->roles[0] == 'subscriber') {
+        show_admin_bar(false);
+    }
+}
+
+add_action('wp_loaded', 'hideAdminBar');
+
+
+
+// Sign In/Sign Out
+
+add_filter( 'wp_nav_menu_items', 'add_to_nav_menu', 10, 2 );
+
+function add_to_nav_menu( $nav, $args ) {
+
+    $logoutUrl = wp_logout_url(); 
+    $userAvatar = get_avatar(get_current_user_id(), 60);
+    $signUpUrl = esc_url(site_url('/wp-signup.php'));
+    $signInUrl = esc_url(site_url('/wp-login.php'));
+    $myNotesUrl = esc_url(site_url('/notes'));
+
+
+    if( is_user_logged_in() AND $args->theme_location == 'primary') {
+    
+        $nav .= "<li><a href='$myNotesUrl'>myNotes</a></li><li><a href='$logoutUrl'>Logout</a></li><span>$userAvatar</span>";
+        return $nav;
+    } elseif ( ! is_user_logged_in() AND $args->theme_location == 'primary') {
+        $nav .= "<li><a href='$signInUrl'>Sign In</a></li><li><a href=' $signUpUrl'>Register</a></li>";
+        return $nav;
+    }
+}
+
+
+// Sign In Logo Links To Our Site
+
+function signInLogoLink() {
+    return esc_url(site_url('/'));
+}
+
+add_filter('login_headerurl', 'signInLogoLink');
+
+
+
+
+// Enqueue styles on sign up/sign in
+
+function custom_login_styles() {
+    wp_enqueue_style('theme-style', get_stylesheet_uri(), array('google-fonts'), $version, 'all');
+
+    wp_enqueue_style('theme-sass', get_theme_file_uri('/build/index.css'), null, $version, 'all');
+
+    wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+    wp_enqueue_style('google-fonts', '//fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,600,700,700i|Roboto:100,300,400,400i,700,700i');
+}
+
+add_action('login_enqueue_scripts', 'custom_login_styles');
+
+
+
+// Change 'powered by wordpress' on login
+
+function loginTitle() {
+    return get_bloginfo('name');
+}
+
+add_filter('login_headertext', 'loginTitle');
+
+
+
+
+// add_filter( 'wp_nav_menu_items', 'add_to_nav_menu', 10, 2 );
+
+// function add_to_nav_menu( $items, $args ) {
+//     $currentUser = wp_get_current_user();
+
+
+//     if (is_user_logged_in() && $currentUser->roles[0] == 'subscriber' && $args->menu == 5) {
+//         $items .= '<li>Logout</li>';
+//     }
+//     elseif (!is_user_logged_in() && $args->menu == 5) {
+//         $items .= '<li>Sign In</li>';
+//     }
+//     return $items;
+// }
+
+
+
+// $user = wp_get_current_user();
+// $allowed_roles = array('subscriber');
+
+// if ( array_intersect( $allowed_roles, $user->roles ) AND is_user_logged_in()) {
+//     echo 'it works!!!';
+// }
+
+
+// add_filter( 'wp_nav_menu_items', 'add_to_nav_menu', 10, 2 );
+
+// function add_to_nav_menu( $nav, $args ) {
+//     $user = wp_get_current_user();
+//     $allowed_roles = array('subscriber');
+
+//     if( array_intersect( $allowed_roles, $user->roles ) AND is_user_logged_in() AND $args->theme_location == 'primary') {
+        
+//         $logoutUrl = wp_logout_url(); 
+    
+//         $nav .= "<li><a href='$logoutUrl'>Logout</a></li>";
+//         return $nav;
+//     } else {
+//         $nav = $nav;
+//         return $nav;
+//     }
+// }
+
+// add_filter('wp_nav_menu_items','search_box_function');
+//   function search_box_function ($nav){
+//   return $nav."<li class='menu-header-search'><form action='http://example.com/' id='searchform' method='get'><input type='text' name='s' id='s' placeholder='Search'></form></li>";
+// }
+
+
+// add_filter( 'wp_nav_menu_items', 'add_main_nav_menu', 10, 2 );
+
+// function add_main_nav_menu( $nav, $args ) {
+
+//     if( $args->theme_location == 'primary') {
+//     $nav .= "<li>123</li>";
+//     return $nav;
+//     } else {
+//         $nav = $nav;
+//     return $nav;
+//     }
+// }
+
+
+//add_filter( 'wp_nav_menu_items', 'prefix_add_menu_item', 10, 2 );
+// /**
+//  * Add Menu Item to end of menu
+//  */
+// function prefix_add_menu_item ( $items, $args ) {
+//    if( $args->theme_location == 'footerone' ) {
+//        $items .=  '<li class="menu-item">...</li>';
+//       } 
+//        return $items;
+// }
+
+
+
+function custom_rest_info() {
+    register_rest_field('post', 'authorName', array(
+        'get_callback' => function() { return get_the_author(); }
+    ));
+
+    register_rest_field('event', 'guestSpeaker', array(
+        'get_callback' => function() { return get_field('guest_speakers'); }
+    ));
+}
+
+add_action('rest_api_init', 'custom_rest_info');

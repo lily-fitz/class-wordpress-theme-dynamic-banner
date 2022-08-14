@@ -5,7 +5,8 @@
 <main id="main" class="container">
             <?php 
                 themePageBanner(array(
-                    'title' => 'Search Results!',
+                    'title' => 'Search Results!!!',
+                    'subtitle' => 'Search results for &ldquo;' . esc_html(get_search_query(false)) . '&rdquo;',
                 ));
             ?>
 
@@ -26,7 +27,10 @@
             </div>
         <?php 
         }
-    } ?></div> <?php echo paginate_links();
+    } else {
+        echo ':\ Nothin';
+    } get_search_form();
+    ?></div> <?php echo paginate_links();
     ?>
 
 </main> 

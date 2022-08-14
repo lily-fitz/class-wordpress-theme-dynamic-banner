@@ -29,7 +29,7 @@
             wp_nav_menu(
                 array(
                     'menu' => 'Primary Menu',
-                    'theme_location' => 'primaryMenuLocation',
+                    'theme_location' => 'primary',
                     'items_wrap' => '<ul data-visible="false" class="primary-nav">%3$s</ul>'
                 )
             );
@@ -39,5 +39,6 @@
             <span></span>
           </button>
         </div>
+        <button type="button" onClick="openSearch()" class="search-overlay__open"><i class="fa fa-search search-overlay__icon-full" aria-hidden="true"></i></button>
       </nav>
     </header>

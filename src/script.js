@@ -61,17 +61,6 @@ window.addEventListener('keydown', (e) => {
   }
 })
 
-//////   Open/Close Search
-
-const search = document.getElementById('search')
-
-function openSearch() {
-  search.style.display = 'flex'
-}
-function closeSearch() {
-  search.style.display = 'none'
-}
-
 //////   Trap Tab Focus
 
 const focusableElements =
@@ -102,3 +91,15 @@ document.addEventListener('keydown', function (e) {
 })
 
 // firstFocusableElement.focus()
+
+//////   Open/Close Search
+
+const searchField = document.querySelector('.search-overlay')
+
+function openSearch() {
+  searchField.classList.add('search-overlay--active')
+}
+
+function closeSearch() {
+  searchField.classList.remove('search-overlay--active')
+}

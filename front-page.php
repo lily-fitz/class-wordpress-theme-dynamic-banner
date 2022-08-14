@@ -3,7 +3,7 @@
 
 
 <main id="main"
-style="background-image: url(<?php echo get_theme_file_uri('/images/plant.png'); ?>); background-size: cover;"
+style="background-image: url(<?php echo get_theme_file_uri('/images/plant-whitebg-tol11.png'); ?>); background-size: cover;"
 >
 <div class="container">
 
@@ -15,6 +15,7 @@ style="background-image: url(<?php echo get_theme_file_uri('/images/plant.png');
     }
     ?>
 
+    <br>
     <br>
     <br>
     <div>
@@ -46,6 +47,8 @@ style="background-image: url(<?php echo get_theme_file_uri('/images/plant.png');
         <br><br>
         <p><a href="<?php echo site_url('/events'); ?>">All Upcoming Events</a></p>
         <p><a href="<?php echo site_url('/pastevents'); ?>">Past Events</a></p>
+        <br><br>
+        <br><br>
     </div>
     </div>  
 </main> 

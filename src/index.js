@@ -1,3 +1,4 @@
-import Search from './components/search'
+import './main.scss'
+import myNotes from './components/myNotes'
 
-const search = new Search()
+const Notes = new myNotes()
